@@ -1,12 +1,13 @@
-Signal-Server
+Dev-Env-Signal-Server
 =================
 
-Documentation
+Why?
 -------------
 
-Looking for protocol documentation? Check out the website!
+This is a modified version of the Signal Server by Open Whisper System.
+It has vastly reduced configuration dependencies and is meant to be used in a development or testing environment.
 
-https://signal.org/docs/
+It is __not__ meant to be used for secure communication.
 
 Cryptography Notice
 ------------
@@ -20,7 +21,9 @@ The form and manner of this distribution makes it eligible for export under the 
 
 License
 ---------------------
+Modifications by Blackoverflow 2020
 
+Original Signal Server:
 Copyright 2013-2016 Open Whisper Systems
 
 Licensed under the AGPLv3: https://www.gnu.org/licenses/agpl-3.0.html
