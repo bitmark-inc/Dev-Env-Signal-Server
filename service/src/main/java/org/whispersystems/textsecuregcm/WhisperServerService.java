@@ -295,9 +295,9 @@ public class WhisperServerService extends Application<WhisperServerConfiguration
     ServerZkAuthOperations    zkAuthOperations       = new ServerZkAuthOperations(zkSecretParams);
     boolean                   isZkEnabled            = config.getZkConfig().isEnabled();
 
-    AttachmentControllerV1 attachmentControllerV1    = new AttachmentControllerV1(rateLimiters, config.getAwsAttachmentsConfiguration().getAccessKey(), config.getAwsAttachmentsConfiguration().getAccessSecret(), config.getAwsAttachmentsConfiguration().getBucket());
-    AttachmentControllerV2 attachmentControllerV2    = new AttachmentControllerV2(rateLimiters, config.getAwsAttachmentsConfiguration().getAccessKey(), config.getAwsAttachmentsConfiguration().getAccessSecret(), config.getAwsAttachmentsConfiguration().getRegion(), config.getAwsAttachmentsConfiguration().getBucket());
-    AttachmentControllerV3 attachmentControllerV3    = new AttachmentControllerV3(rateLimiters, config.getGcpAttachmentsConfiguration().getDomain(), config.getGcpAttachmentsConfiguration().getEmail(), config.getGcpAttachmentsConfiguration().getMaxSizeInBytes(), config.getGcpAttachmentsConfiguration().getPathPrefix(), config.getGcpAttachmentsConfiguration().getRsaSigningKey());
+    //AttachmentControllerV1 attachmentControllerV1    = new AttachmentControllerV1(rateLimiters, config.getAwsAttachmentsConfiguration().getAccessKey(), config.getAwsAttachmentsConfiguration().getAccessSecret(), config.getAwsAttachmentsConfiguration().getBucket());
+    //AttachmentControllerV2 attachmentControllerV2    = new AttachmentControllerV2(rateLimiters, config.getAwsAttachmentsConfiguration().getAccessKey(), config.getAwsAttachmentsConfiguration().getAccessSecret(), config.getAwsAttachmentsConfiguration().getRegion(), config.getAwsAttachmentsConfiguration().getBucket());
+    //AttachmentControllerV3 attachmentControllerV3    = new AttachmentControllerV3(rateLimiters, config.getGcpAttachmentsConfiguration().getDomain(), config.getGcpAttachmentsConfiguration().getEmail(), config.getGcpAttachmentsConfiguration().getMaxSizeInBytes(), config.getGcpAttachmentsConfiguration().getPathPrefix(), config.getGcpAttachmentsConfiguration().getRsaSigningKey());
     KeysController         keysController            = new KeysController(rateLimiters, keys, accountsManager, directoryQueue);
     MessageController      messageController         = new MessageController(rateLimiters, pushSender, receiptSender, accountsManager, messagesManager, apnFallbackManager);
     ProfileController      profileController         = new ProfileController(rateLimiters, accountsManager, profilesManager, usernamesManager, cdnS3Client, profileCdnPolicyGenerator, profileCdnPolicySigner, config.getCdnConfiguration().getBucket(), zkProfileOperations, isZkEnabled);
@@ -319,9 +319,9 @@ public class WhisperServerService extends Application<WhisperServerConfiguration
     environment.jersey().register(new VoiceVerificationController(config.getVoiceVerificationConfiguration().getUrl(), config.getVoiceVerificationConfiguration().getLocales()));
     environment.jersey().register(new SecureStorageController(storageCredentialsGenerator));
     environment.jersey().register(new SecureBackupController(backupCredentialsGenerator));
-    environment.jersey().register(attachmentControllerV1);
-    environment.jersey().register(attachmentControllerV2);
-    environment.jersey().register(attachmentControllerV3);
+    //environment.jersey().register(attachmentControllerV1);
+    //environment.jersey().register(attachmentControllerV2);
+    //environment.jersey().register(attachmentControllerV3);
     environment.jersey().register(keysController);
     environment.jersey().register(messageController);
     environment.jersey().register(profileController);
@@ -335,9 +335,9 @@ public class WhisperServerService extends Application<WhisperServerConfiguration
     webSocketEnvironment.jersey().register(new KeepAliveController(pubSubManager));
     webSocketEnvironment.jersey().register(messageController);
     webSocketEnvironment.jersey().register(profileController);
-    webSocketEnvironment.jersey().register(attachmentControllerV1);
-    webSocketEnvironment.jersey().register(attachmentControllerV2);
-    webSocketEnvironment.jersey().register(attachmentControllerV3);
+    //webSocketEnvironment.jersey().register(attachmentControllerV1);
+    //webSocketEnvironment.jersey().register(attachmentControllerV2);
+    //webSocketEnvironment.jersey().register(attachmentControllerV3);
     webSocketEnvironment.jersey().register(remoteConfigController);
 
     WebSocketEnvironment<Account> provisioningEnvironment = new WebSocketEnvironment<>(environment, webSocketEnvironment.getRequestLog(), 60000);

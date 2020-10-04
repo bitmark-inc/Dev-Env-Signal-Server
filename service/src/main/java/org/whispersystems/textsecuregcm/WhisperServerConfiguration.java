@@ -36,16 +36,6 @@ public class WhisperServerConfiguration extends Configuration {
   @NotNull
   @Valid
   @JsonProperty
-  private AwsAttachmentsConfiguration awsAttachments;
-
-  @NotNull
-  @Valid
-  @JsonProperty
-  private GcpAttachmentsConfiguration gcpAttachments;
-
-  @NotNull
-  @Valid
-  @JsonProperty
   private CdnConfiguration cdn;
 
   @NotNull
@@ -174,14 +164,6 @@ public class WhisperServerConfiguration extends Configuration {
 
   public JerseyClientConfiguration getJerseyClientConfiguration() {
     return httpClient;
-  }
-
-  public AwsAttachmentsConfiguration getAwsAttachmentsConfiguration() {
-    return awsAttachments;
-  }
-
-  public GcpAttachmentsConfiguration getGcpAttachmentsConfiguration() {
-    return gcpAttachments;
   }
 
   public RedisConfiguration getCacheConfiguration() {
