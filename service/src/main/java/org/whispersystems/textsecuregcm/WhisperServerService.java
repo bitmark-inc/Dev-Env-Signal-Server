@@ -259,8 +259,7 @@ public class WhisperServerService extends Application<WhisperServerConfiguration
     ExternalServiceCredentialGenerator backupCredentialsGenerator  = new ExternalServiceCredentialGenerator(config.getSecureBackupServiceConfiguration().getUserAuthenticationTokenSharedSecret(), new byte[0], false);
 
     ApnFallbackManager       apnFallbackManager  = new ApnFallbackManager(pushSchedulerClient, apnSender, accountsManager);
-    TwilioSmsSender          twilioSmsSender     = new TwilioSmsSender(config.getTwilioConfiguration());
-    SmsSender                smsSender           = new SmsSender(twilioSmsSender);
+    SmsSender                smsSender           = null;// dev env has no smsSender
     PushSender               pushSender          = new PushSender(apnFallbackManager, gcmSender, apnSender, websocketSender, config.getPushConfiguration().getQueueSize());
     ReceiptSender            receiptSender       = new ReceiptSender(accountsManager, pushSender);
     TurnTokenGenerator       turnTokenGenerator  = new TurnTokenGenerator(config.getTurnConfiguration());

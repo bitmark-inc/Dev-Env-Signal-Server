@@ -89,6 +89,7 @@ import io.dropwizard.auth.Auth;
 @Path("/v1/accounts")
 public class AccountController {
 
+  public static final int DEV_ENV_FIXED_VERIFICATION_CODE = 111111;
   private final Logger         logger                 = LoggerFactory.getLogger(AccountController.class);
   private final MetricRegistry metricRegistry         = SharedMetricRegistries.getOrCreate(Constants.METRICS_NAME);
   private final Meter          newUserMeter           = metricRegistry.meter(name(AccountController.class, "brand_new_user"     ));
@@ -232,13 +233,7 @@ public class AccountController {
 
     pendingAccounts.store(number, storedVerificationCode);
 
-    if (testDevices.containsKey(number)) {
-      // noop
-    } else if (transport.equals("sms")) {
-      smsSender.deliverSmsVerification(number, client, verificationCode.getVerificationCodeDisplay());
-    } else if (transport.equals("voice")) {
-      smsSender.deliverVoxVerification(number, verificationCode.getVerificationCode(), locale);
-    }
+    // don't send the verification code
 
     metricRegistry.meter(name(AccountController.class, "create", Util.getCountryCode(number))).mark();
 
@@ -643,9 +638,7 @@ public class AccountController {
       return new VerificationCode(testDevices.get(number));
     }
 
-    SecureRandom random = new SecureRandom();
-    int randomInt       = 100000 + random.nextInt(900000);
-    return new VerificationCode(randomInt);
+    return new VerificationCode(DEV_ENV_FIXED_VERIFICATION_CODE);
   }
 
   private String generatePushChallenge() {

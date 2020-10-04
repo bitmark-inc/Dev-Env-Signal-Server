@@ -36,11 +36,6 @@ public class WhisperServerConfiguration extends Configuration {
   @NotNull
   @Valid
   @JsonProperty
-  private TwilioConfiguration twilio;
-
-  @NotNull
-  @Valid
-  @JsonProperty
   private PushConfiguration push;
 
   @NotNull
@@ -190,10 +185,6 @@ public class WhisperServerConfiguration extends Configuration {
 
   public WebSocketConfiguration getWebSocketConfiguration() {
     return webSocket;
-  }
-
-  public TwilioConfiguration getTwilioConfiguration() {
-    return twilio;
   }
 
   public PushConfiguration getPushConfiguration() {
