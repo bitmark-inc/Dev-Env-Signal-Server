@@ -7,9 +7,8 @@ import com.google.protobuf.ByteString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.whispersystems.textsecuregcm.push.ApnFallbackManager;
-import org.whispersystems.textsecuregcm.push.PushSender;
+import org.whispersystems.textsecuregcm.push.WebsocketOnlyPushSender;
 import org.whispersystems.textsecuregcm.push.ReceiptSender;
-import org.whispersystems.textsecuregcm.redis.RedisOperation;
 import org.whispersystems.textsecuregcm.storage.Account;
 import org.whispersystems.textsecuregcm.storage.Device;
 import org.whispersystems.textsecuregcm.storage.MessagesManager;
@@ -30,13 +29,13 @@ public class AuthenticatedConnectListener implements WebSocketConnectListener {
   private static final Timer          durationTimer                = metricRegistry.timer(name(WebSocketConnection.class, "connected_duration"                 ));
   private static final Timer          unauthenticatedDurationTimer = metricRegistry.timer(name(WebSocketConnection.class, "unauthenticated_connection_duration"));
 
-  private final PushSender         pushSender;
+  private final WebsocketOnlyPushSender pushSender;
   private final ReceiptSender      receiptSender;
   private final MessagesManager    messagesManager;
   private final PubSubManager      pubSubManager;
   private final ApnFallbackManager apnFallbackManager;
 
-  public AuthenticatedConnectListener(PushSender pushSender,
+  public AuthenticatedConnectListener(WebsocketOnlyPushSender pushSender,
                                       ReceiptSender receiptSender,
                                       MessagesManager messagesManager,
                                       PubSubManager pubSubManager,
@@ -64,7 +63,6 @@ public class AuthenticatedConnectListener implements WebSocketConnectListener {
                                                                   .setContent(ByteString.copyFrom(connectionId.getBytes()))
                                                                   .build();
 
-      RedisOperation.unchecked(() -> apnFallbackManager.cancel(account, device));
       pubSubManager.publish(address, connectMessage);
       pubSubManager.subscribe(address, connection);
 

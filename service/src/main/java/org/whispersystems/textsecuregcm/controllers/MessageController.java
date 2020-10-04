@@ -37,9 +37,8 @@ import org.whispersystems.textsecuregcm.entities.StaleDevices;
 import org.whispersystems.textsecuregcm.limits.RateLimiters;
 import org.whispersystems.textsecuregcm.push.ApnFallbackManager;
 import org.whispersystems.textsecuregcm.push.NotPushRegisteredException;
-import org.whispersystems.textsecuregcm.push.PushSender;
+import org.whispersystems.textsecuregcm.push.WebsocketOnlyPushSender;
 import org.whispersystems.textsecuregcm.push.ReceiptSender;
-import org.whispersystems.textsecuregcm.redis.RedisOperation;
 import org.whispersystems.textsecuregcm.storage.Account;
 import org.whispersystems.textsecuregcm.storage.AccountsManager;
 import org.whispersystems.textsecuregcm.storage.Device;
@@ -82,14 +81,14 @@ public class MessageController {
   private final Meter          identifiedMeter   = metricRegistry.meter(name(getClass(), "delivery", "identified"  ));
 
   private final RateLimiters           rateLimiters;
-  private final PushSender             pushSender;
+  private final WebsocketOnlyPushSender pushSender;
   private final ReceiptSender          receiptSender;
   private final AccountsManager        accountsManager;
   private final MessagesManager        messagesManager;
   private final ApnFallbackManager     apnFallbackManager;
 
   public MessageController(RateLimiters rateLimiters,
-                           PushSender pushSender,
+                           WebsocketOnlyPushSender pushSender,
                            ReceiptSender receiptSender,
                            AccountsManager accountsManager,
                            MessagesManager messagesManager,
@@ -172,10 +171,6 @@ public class MessageController {
   @Produces(MediaType.APPLICATION_JSON)
   public OutgoingMessageEntityList getPendingMessages(@Auth Account account) {
     assert account.getAuthenticatedDevice().isPresent();
-
-    if (!Util.isEmpty(account.getAuthenticatedDevice().get().getApnId())) {
-      RedisOperation.unchecked(() -> apnFallbackManager.cancel(account, account.getAuthenticatedDevice().get()));
-    }
 
     return messagesManager.getMessagesForDevice(account.getNumber(),
                                                 account.getAuthenticatedDevice().get().getId());

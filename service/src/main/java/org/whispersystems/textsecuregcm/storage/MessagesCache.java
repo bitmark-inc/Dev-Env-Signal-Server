@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.whispersystems.textsecuregcm.entities.MessageProtos.Envelope;
 import org.whispersystems.textsecuregcm.entities.OutgoingMessageEntity;
 import org.whispersystems.textsecuregcm.push.NotPushRegisteredException;
-import org.whispersystems.textsecuregcm.push.PushSender;
+import org.whispersystems.textsecuregcm.push.WebsocketOnlyPushSender;
 import org.whispersystems.textsecuregcm.redis.LuaScript;
 import org.whispersystems.textsecuregcm.redis.ReplicatedJedisPool;
 import org.whispersystems.textsecuregcm.util.Constants;
@@ -59,7 +59,7 @@ public class MessagesCache implements Managed {
   private GetOperation     getOperation;
 
   private PubSubManager    pubSubManager;
-  private PushSender       pushSender;
+  private WebsocketOnlyPushSender pushSender;
   private MessagePersister messagePersister;
 
   public MessagesCache(ReplicatedJedisPool jedisPool, Messages database, AccountsManager accountsManager, int delayMinutes) {
@@ -173,7 +173,7 @@ public class MessagesCache implements Managed {
     }
   }
 
-  public void setPubSubManager(PubSubManager pubSubManager, PushSender pushSender) {
+  public void setPubSubManager(PubSubManager pubSubManager, WebsocketOnlyPushSender pushSender) {
     this.pubSubManager = pubSubManager;
     this.pushSender    = pushSender;
   }
@@ -386,7 +386,7 @@ public class MessagesCache implements Managed {
     private final TimeUnit            delayTimeUnit;
 
     private final PubSubManager   pubSubManager;
-    private final PushSender      pushSender;
+    private final WebsocketOnlyPushSender pushSender;
     private final AccountsManager accountsManager;
 
     private final GetOperation    getOperation;
@@ -397,7 +397,7 @@ public class MessagesCache implements Managed {
     MessagePersister(ReplicatedJedisPool jedisPool,
                      Messages            database,
                      PubSubManager       pubSubManager,
-                     PushSender          pushSender,
+                     WebsocketOnlyPushSender pushSender,
                      AccountsManager     accountsManager,
                      long                delayTime,
                      TimeUnit            delayTimeUnit)
@@ -502,7 +502,7 @@ public class MessagesCache implements Managed {
       }
     }
 
-    private void notifyClients(AccountsManager accountsManager, PubSubManager pubSubManager, PushSender pushSender, Key key) {
+    private void notifyClients(AccountsManager accountsManager, PubSubManager pubSubManager, WebsocketOnlyPushSender pushSender, Key key) {
       Timer.Context timer = notifyTimer.time();
 
       try {

@@ -15,7 +15,7 @@ import org.whispersystems.textsecuregcm.entities.EncryptedOutgoingMessage;
 import org.whispersystems.textsecuregcm.entities.OutgoingMessageEntity;
 import org.whispersystems.textsecuregcm.entities.OutgoingMessageEntityList;
 import org.whispersystems.textsecuregcm.push.NotPushRegisteredException;
-import org.whispersystems.textsecuregcm.push.PushSender;
+import org.whispersystems.textsecuregcm.push.WebsocketOnlyPushSender;
 import org.whispersystems.textsecuregcm.push.ReceiptSender;
 import org.whispersystems.textsecuregcm.storage.Account;
 import org.whispersystems.textsecuregcm.storage.Device;
@@ -43,7 +43,7 @@ public class WebSocketConnection implements DispatchChannel {
   private static final Logger logger = LoggerFactory.getLogger(WebSocketConnection.class);
 
   private final ReceiptSender    receiptSender;
-  private final PushSender       pushSender;
+  private final WebsocketOnlyPushSender pushSender;
   private final MessagesManager  messagesManager;
 
   private final Account          account;
@@ -51,7 +51,7 @@ public class WebSocketConnection implements DispatchChannel {
   private final WebSocketClient  client;
   private final String           connectionId;
 
-  public WebSocketConnection(PushSender pushSender,
+  public WebSocketConnection(WebsocketOnlyPushSender pushSender,
                              ReceiptSender receiptSender,
                              MessagesManager messagesManager,
                              Account account,

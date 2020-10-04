@@ -21,45 +21,34 @@ import com.codahale.metrics.SharedMetricRegistries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.whispersystems.textsecuregcm.push.WebsocketSender.DeliveryStatus;
-import org.whispersystems.textsecuregcm.redis.RedisOperation;
 import org.whispersystems.textsecuregcm.storage.Account;
 import org.whispersystems.textsecuregcm.storage.Device;
 import org.whispersystems.textsecuregcm.util.BlockingThreadPoolExecutor;
 import org.whispersystems.textsecuregcm.util.Constants;
-import org.whispersystems.textsecuregcm.util.Util;
 
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import static com.codahale.metrics.MetricRegistry.name;
 import io.dropwizard.lifecycle.Managed;
 import static org.whispersystems.textsecuregcm.entities.MessageProtos.Envelope;
 
-public class PushSender implements Managed {
+public class WebsocketOnlyPushSender implements Managed {
 
   @SuppressWarnings("unused")
-  private final Logger logger = LoggerFactory.getLogger(PushSender.class);
+  private final Logger logger = LoggerFactory.getLogger(WebsocketOnlyPushSender.class);
 
-  private final ApnFallbackManager         apnFallbackManager;
-  private final GCMSender                  gcmSender;
-  private final APNSender                  apnSender;
   private final WebsocketSender            webSocketSender;
   private final BlockingThreadPoolExecutor executor;
   private final int                        queueSize;
 
-  public PushSender(ApnFallbackManager apnFallbackManager,
-                    GCMSender gcmSender, APNSender apnSender,
-                    WebsocketSender websocketSender, int queueSize)
+  public WebsocketOnlyPushSender(WebsocketSender websocketSender, int queueSize)
   {
-    this.apnFallbackManager = apnFallbackManager;
-    this.gcmSender          = gcmSender;
-    this.apnSender          = apnSender;
     this.webSocketSender    = websocketSender;
     this.queueSize          = queueSize;
     this.executor           = new BlockingThreadPoolExecutor(50, queueSize);
 
     SharedMetricRegistries.getOrCreate(Constants.METRICS_NAME)
-                          .register(name(PushSender.class, "send_queue_depth"),
+                          .register(name(WebsocketOnlyPushSender.class, "send_queue_depth"),
                                     (Gauge<Integer>) executor::getSize);
   }
 
@@ -105,35 +94,15 @@ public class PushSender implements Managed {
   }
 
   private void sendGcmNotification(Account account, Device device) {
-    GcmMessage gcmMessage = new GcmMessage(device.getGcmId(), account.getNumber(),
-                                           (int)device.getId(), GcmMessage.Type.NOTIFICATION, Optional.empty());
-
-    gcmSender.sendMessage(gcmMessage);
+    //not in dev env
   }
 
   private void sendApnMessage(Account account, Device device, Envelope outgoingMessage, boolean online) {
-    DeliveryStatus deliveryStatus = webSocketSender.sendMessage(account, device, outgoingMessage, WebsocketSender.Type.APN, online);
-
-    if (!deliveryStatus.isDelivered() && outgoingMessage.getType() != Envelope.Type.RECEIPT && !online) {
-      sendApnNotification(account, device, false);
-    }
+    //not in dev env
   }
 
   private void sendApnNotification(Account account, Device device, boolean newOnly) {
-    ApnMessage apnMessage;
-
-    if (newOnly && RedisOperation.unchecked(() -> apnFallbackManager.isScheduled(account, device))) {
-      return;
-    }
-
-    if (!Util.isEmpty(device.getVoipApnId())) {
-      apnMessage = new ApnMessage(device.getVoipApnId(), account.getNumber(), device.getId(), true, Optional.empty());
-      RedisOperation.unchecked(() -> apnFallbackManager.schedule(account, device));
-    } else {
-      apnMessage = new ApnMessage(device.getApnId(), account.getNumber(), device.getId(), false, Optional.empty());
-    }
-
-    apnSender.sendMessage(apnMessage);
+    //not in dev env
   }
 
   private void sendWebSocketMessage(Account account, Device device, Envelope outgoingMessage, boolean online)
@@ -143,17 +112,12 @@ public class PushSender implements Managed {
 
   @Override
   public void start() throws Exception {
-    apnSender.start();
-    gcmSender.start();
   }
 
   @Override
   public void stop() throws Exception {
     executor.shutdown();
     executor.awaitTermination(5, TimeUnit.MINUTES);
-
-    apnSender.stop();
-    gcmSender.stop();
   }
 
 }

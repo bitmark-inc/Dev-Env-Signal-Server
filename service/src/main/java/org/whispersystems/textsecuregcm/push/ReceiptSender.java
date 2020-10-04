@@ -11,11 +11,11 @@ import java.util.Set;
 
 public class ReceiptSender {
 
-  private final PushSender      pushSender;
+  private final WebsocketOnlyPushSender pushSender;
   private final AccountsManager accountManager;
 
   public ReceiptSender(AccountsManager accountManager,
-                       PushSender      pushSender)
+                       WebsocketOnlyPushSender pushSender)
   {
     this.accountManager = accountManager;
     this.pushSender     = pushSender;

@@ -10,7 +10,7 @@ import org.whispersystems.textsecuregcm.auth.AccountAuthenticator;
 import org.whispersystems.textsecuregcm.entities.OutgoingMessageEntity;
 import org.whispersystems.textsecuregcm.entities.OutgoingMessageEntityList;
 import org.whispersystems.textsecuregcm.push.ApnFallbackManager;
-import org.whispersystems.textsecuregcm.push.PushSender;
+import org.whispersystems.textsecuregcm.push.WebsocketOnlyPushSender;
 import org.whispersystems.textsecuregcm.push.ReceiptSender;
 import org.whispersystems.textsecuregcm.push.WebsocketSender;
 import org.whispersystems.textsecuregcm.storage.Account;
@@ -25,7 +25,6 @@ import org.whispersystems.textsecuregcm.websocket.WebSocketAccountAuthenticator;
 import org.whispersystems.textsecuregcm.websocket.WebSocketConnection;
 import org.whispersystems.textsecuregcm.websocket.WebsocketAddress;
 import org.whispersystems.websocket.WebSocketClient;
-import org.whispersystems.websocket.auth.WebSocketAuthenticator;
 import org.whispersystems.websocket.auth.WebSocketAuthenticator.AuthenticationResult;
 import org.whispersystems.websocket.messages.WebSocketResponseMessage;
 import org.whispersystems.websocket.session.WebSocketSessionContext;
@@ -60,7 +59,7 @@ public class WebSocketConnectionTest {
   private static final Account              account              = mock(Account.class             );
   private static final Device               device               = mock(Device.class              );
   private static final UpgradeRequest       upgradeRequest       = mock(UpgradeRequest.class      );
-  private static final PushSender           pushSender           = mock(PushSender.class);
+  private static final WebsocketOnlyPushSender pushSender           = mock(WebsocketOnlyPushSender.class);
   private static final ReceiptSender        receiptSender        = mock(ReceiptSender.class);
   private static final ApnFallbackManager   apnFallbackManager   = mock(ApnFallbackManager.class);
 

@@ -36,11 +36,6 @@ public class WhisperServerConfiguration extends Configuration {
   @NotNull
   @Valid
   @JsonProperty
-  private PushConfiguration push;
-
-  @NotNull
-  @Valid
-  @JsonProperty
   private AwsAttachmentsConfiguration awsAttachments;
 
   @NotNull
@@ -131,16 +126,6 @@ public class WhisperServerConfiguration extends Configuration {
   @Valid
   @NotNull
   @JsonProperty
-  private GcmConfiguration gcm;
-
-  @Valid
-  @NotNull
-  @JsonProperty
-  private ApnConfiguration apn;
-
-  @Valid
-  @NotNull
-  @JsonProperty
   private UnidentifiedDeliveryConfiguration unidentifiedDelivery;
 
   @Valid
@@ -185,10 +170,6 @@ public class WhisperServerConfiguration extends Configuration {
 
   public WebSocketConfiguration getWebSocketConfiguration() {
     return webSocket;
-  }
-
-  public PushConfiguration getPushConfiguration() {
-    return push;
   }
 
   public JerseyClientConfiguration getJerseyClientConfiguration() {
@@ -249,14 +230,6 @@ public class WhisperServerConfiguration extends Configuration {
 
   public TurnConfiguration getTurnConfiguration() {
     return turn;
-  }
-
-  public GcmConfiguration getGcmConfiguration() {
-    return gcm;
-  }
-
-  public ApnConfiguration getApnConfiguration() {
-    return apn;
   }
 
   public CdnConfiguration getCdnConfiguration() {

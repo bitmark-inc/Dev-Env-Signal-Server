@@ -22,7 +22,7 @@ import org.whispersystems.textsecuregcm.entities.StaleDevices;
 import org.whispersystems.textsecuregcm.limits.RateLimiter;
 import org.whispersystems.textsecuregcm.limits.RateLimiters;
 import org.whispersystems.textsecuregcm.push.ApnFallbackManager;
-import org.whispersystems.textsecuregcm.push.PushSender;
+import org.whispersystems.textsecuregcm.push.WebsocketOnlyPushSender;
 import org.whispersystems.textsecuregcm.push.ReceiptSender;
 import org.whispersystems.textsecuregcm.storage.Account;
 import org.whispersystems.textsecuregcm.storage.AccountsManager;
@@ -62,7 +62,7 @@ public class MessageControllerTest {
   private static final String MULTI_DEVICE_RECIPIENT  = "+14152222222";
   private static final UUID   MULTI_DEVICE_UUID       = UUID.randomUUID();
 
-  private  final PushSender             pushSender             = mock(PushSender.class            );
+  private  final WebsocketOnlyPushSender pushSender             = mock(WebsocketOnlyPushSender.class            );
   private  final ReceiptSender          receiptSender          = mock(ReceiptSender.class);
   private  final AccountsManager        accountsManager        = mock(AccountsManager.class       );
   private  final MessagesManager        messagesManager        = mock(MessagesManager.class);

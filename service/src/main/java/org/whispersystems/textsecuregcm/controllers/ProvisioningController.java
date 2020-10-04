@@ -3,7 +3,7 @@ package org.whispersystems.textsecuregcm.controllers;
 import com.codahale.metrics.annotation.Timed;
 import org.whispersystems.textsecuregcm.entities.ProvisioningMessage;
 import org.whispersystems.textsecuregcm.limits.RateLimiters;
-import org.whispersystems.textsecuregcm.push.PushSender;
+import org.whispersystems.textsecuregcm.push.WebsocketOnlyPushSender;
 import org.whispersystems.textsecuregcm.push.WebsocketSender;
 import org.whispersystems.textsecuregcm.storage.Account;
 import org.whispersystems.textsecuregcm.util.Base64;
@@ -29,7 +29,7 @@ public class ProvisioningController {
   private final RateLimiters    rateLimiters;
   private final WebsocketSender websocketSender;
 
-  public ProvisioningController(RateLimiters rateLimiters, PushSender pushSender) {
+  public ProvisioningController(RateLimiters rateLimiters, WebsocketOnlyPushSender pushSender) {
     this.rateLimiters    = rateLimiters;
     this.websocketSender = pushSender.getWebSocketSender();
   }
