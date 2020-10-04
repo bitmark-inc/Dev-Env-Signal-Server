@@ -121,11 +121,6 @@ public class WhisperServerConfiguration extends Configuration {
   @Valid
   @NotNull
   @JsonProperty
-  private RecaptchaConfiguration recaptcha;
-
-  @Valid
-  @NotNull
-  @JsonProperty
   private SecureStorageServiceConfiguration storageService;
 
   @Valid
@@ -144,10 +139,6 @@ public class WhisperServerConfiguration extends Configuration {
   private RemoteConfigConfiguration remoteConfig;
 
   private Map<String, String> transparentDataIndex = new HashMap<>();
-
-  public RecaptchaConfiguration getRecaptchaConfiguration() {
-    return recaptcha;
-  }
 
   public VoiceVerificationConfiguration getVoiceVerificationConfiguration() {
     return voiceVerification;
