@@ -36,11 +36,6 @@ public class WhisperServerConfiguration extends Configuration {
   @NotNull
   @Valid
   @JsonProperty
-  private CdnConfiguration cdn;
-
-  @NotNull
-  @Valid
-  @JsonProperty
   private RedisConfiguration cache;
 
   @NotNull
@@ -212,10 +207,6 @@ public class WhisperServerConfiguration extends Configuration {
 
   public TurnConfiguration getTurnConfiguration() {
     return turn;
-  }
-
-  public CdnConfiguration getCdnConfiguration() {
-    return cdn;
   }
 
   public UnidentifiedDeliveryConfiguration getDeliveryCertificate() {
