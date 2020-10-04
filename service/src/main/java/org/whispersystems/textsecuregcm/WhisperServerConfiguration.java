@@ -116,11 +116,6 @@ public class WhisperServerConfiguration extends Configuration {
   @Valid
   @NotNull
   @JsonProperty
-  private VoiceVerificationConfiguration voiceVerification;
-
-  @Valid
-  @NotNull
-  @JsonProperty
   private SecureStorageServiceConfiguration storageService;
 
   @Valid
@@ -139,10 +134,6 @@ public class WhisperServerConfiguration extends Configuration {
   private RemoteConfigConfiguration remoteConfig;
 
   private Map<String, String> transparentDataIndex = new HashMap<>();
-
-  public VoiceVerificationConfiguration getVoiceVerificationConfiguration() {
-    return voiceVerification;
-  }
 
   public WebSocketConfiguration getWebSocketConfiguration() {
     return webSocket;
