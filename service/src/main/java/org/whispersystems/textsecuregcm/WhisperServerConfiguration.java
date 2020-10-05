@@ -123,10 +123,10 @@ public class WhisperServerConfiguration extends Configuration {
   @JsonProperty
   private SecureBackupServiceConfiguration backupService;*/
 
-  @Valid
+  /*@Valid
   @NotNull
   @JsonProperty
-  private ZkConfig zkConfig;
+  private ZkConfig zkConfig;*/
 
   @Valid
   @NotNull
@@ -225,9 +225,9 @@ public class WhisperServerConfiguration extends Configuration {
     return backupService;
   }*/
 
-  public ZkConfig getZkConfig() {
+  /*public ZkConfig getZkConfig() {
     return zkConfig;
-  }
+  }*/
 
   public RemoteConfigConfiguration getRemoteConfigConfiguration() {
     return remoteConfig;
