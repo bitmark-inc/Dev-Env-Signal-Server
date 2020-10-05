@@ -51,7 +51,7 @@ public class WhisperServerConfiguration extends Configuration {
   @NotNull
   @Valid
   @JsonProperty
-  private AccountDatabaseCrawlerConfiguration accountDatabaseCrawler;
+  private AccountDatabaseCrawlerConfiguration accountDatabaseCrawler = new AccountDatabaseCrawlerConfiguration();
 
   @NotNull
   @Valid
