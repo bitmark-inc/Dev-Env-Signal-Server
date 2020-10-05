@@ -43,10 +43,10 @@ public class WhisperServerConfiguration extends Configuration {
   @JsonProperty
   private RedisConfiguration pubsub;
 
-  @NotNull
+  /*@NotNull
   @Valid
   @JsonProperty
-  private DirectoryConfiguration directory;
+  private DirectoryConfiguration directory;*/
 
   @NotNull
   @Valid
@@ -151,9 +151,9 @@ public class WhisperServerConfiguration extends Configuration {
     return pubsub;
   }
 
-  public DirectoryConfiguration getDirectoryConfiguration() {
+  /*public DirectoryConfiguration getDirectoryConfiguration() {
     return directory;
-  }
+  }*/
 
   public SecureStorageServiceConfiguration getSecureStorageServiceConfiguration() {
     return storageService;

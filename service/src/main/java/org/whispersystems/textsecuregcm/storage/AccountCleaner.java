@@ -72,7 +72,7 @@ public class AccountCleaner extends AccountDatabaseCrawlerListener {
           accountUpdateCount++;
           accountsManager.update(account);
 
-          directoryQueue.deleteRegisteredUser(account.getUuid(), account.getNumber());
+          //directoryQueue.deleteRegisteredUser(account.getUuid(), account.getNumber());
         }
       }
     }
