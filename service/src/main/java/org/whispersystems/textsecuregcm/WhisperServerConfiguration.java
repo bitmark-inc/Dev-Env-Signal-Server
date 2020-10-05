@@ -118,10 +118,10 @@ public class WhisperServerConfiguration extends Configuration {
   @JsonProperty
   private SecureStorageServiceConfiguration storageService;*/
 
-  @Valid
+  /*@Valid
   @NotNull
   @JsonProperty
-  private SecureBackupServiceConfiguration backupService;
+  private SecureBackupServiceConfiguration backupService;*/
 
   @Valid
   @NotNull
@@ -221,9 +221,9 @@ public class WhisperServerConfiguration extends Configuration {
     return transparentDataIndex;
   }
 
-  public SecureBackupServiceConfiguration getSecureBackupServiceConfiguration() {
+  /*public SecureBackupServiceConfiguration getSecureBackupServiceConfiguration() {
     return backupService;
-  }
+  }*/
 
   public ZkConfig getZkConfig() {
     return zkConfig;

@@ -255,7 +255,7 @@ public class WhisperServerService extends Application<WhisperServerConfiguration
                                                                                                               true);*/
 
     //ExternalServiceCredentialGenerator storageCredentialsGenerator = new ExternalServiceCredentialGenerator(config.getSecureStorageServiceConfiguration().getUserAuthenticationTokenSharedSecret(), new byte[0], false);
-    ExternalServiceCredentialGenerator backupCredentialsGenerator  = new ExternalServiceCredentialGenerator(config.getSecureBackupServiceConfiguration().getUserAuthenticationTokenSharedSecret(), new byte[0], false);
+    ExternalServiceCredentialGenerator backupCredentialsGenerator  = null;//new ExternalServiceCredentialGenerator(config.getSecureBackupServiceConfiguration().getUserAuthenticationTokenSharedSecret(), new byte[0], false);
 
     ApnFallbackManager       apnFallbackManager  = null;
     SmsSender                smsSender           = null;// dev env has no smsSender
@@ -317,7 +317,7 @@ public class WhisperServerService extends Application<WhisperServerConfiguration
     environment.jersey().register(new ProvisioningController(rateLimiters, pushSender));
     environment.jersey().register(new CertificateController(new CertificateGenerator(config.getDeliveryCertificate().getCertificate(), config.getDeliveryCertificate().getPrivateKey(), config.getDeliveryCertificate().getExpiresDays()), zkAuthOperations, isZkEnabled));
     //environment.jersey().register(new SecureStorageController(storageCredentialsGenerator));
-    environment.jersey().register(new SecureBackupController(backupCredentialsGenerator));
+    //environment.jersey().register(new SecureBackupController(backupCredentialsGenerator));
     //environment.jersey().register(attachmentControllerV1);
     //environment.jersey().register(attachmentControllerV2);
     //environment.jersey().register(attachmentControllerV3);

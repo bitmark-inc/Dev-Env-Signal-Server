@@ -270,8 +270,8 @@ public class AccountController {
 
       Optional<Account>                    existingAccount           = accounts.get(number);
       Optional<StoredRegistrationLock>     existingRegistrationLock  = existingAccount.map(Account::getRegistrationLock);
-      Optional<ExternalServiceCredentials> existingBackupCredentials = existingAccount.map(Account::getUuid)
-                                                                                      .map(uuid -> backupServiceCredentialGenerator.generateFor(uuid.toString()));
+      Optional<ExternalServiceCredentials> existingBackupCredentials = Optional.empty();//existingAccount.map(Account::getUuid)
+                                                                                      //.map(uuid -> backupServiceCredentialGenerator.generateFor(uuid.toString()));
 
       if (existingRegistrationLock.isPresent() && existingRegistrationLock.get().requiresClientRegistrationLock()) {
         rateLimiters.getVerifyLimiter().clear(number);
