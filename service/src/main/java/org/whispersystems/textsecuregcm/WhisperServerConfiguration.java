@@ -108,10 +108,10 @@ public class WhisperServerConfiguration extends Configuration {
   @JsonProperty
   private TurnConfiguration turn;*/
 
-  @Valid
+  /*@Valid
   @NotNull
   @JsonProperty
-  private UnidentifiedDeliveryConfiguration unidentifiedDelivery;
+  private UnidentifiedDeliveryConfiguration unidentifiedDelivery;*/
 
 /*  @Valid
   @NotNull
@@ -191,9 +191,9 @@ public class WhisperServerConfiguration extends Configuration {
     return turn;
   }*/
 
-  public UnidentifiedDeliveryConfiguration getDeliveryCertificate() {
+ /* public UnidentifiedDeliveryConfiguration getDeliveryCertificate() {
     return unidentifiedDelivery;
-  }
+  }*/
 
   public Map<String, Integer> getTestDevices() {
     Map<String, Integer> results = new HashMap<>();
