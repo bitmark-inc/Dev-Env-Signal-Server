@@ -113,10 +113,10 @@ public class WhisperServerConfiguration extends Configuration {
   @JsonProperty
   private UnidentifiedDeliveryConfiguration unidentifiedDelivery;
 
-  @Valid
+/*  @Valid
   @NotNull
   @JsonProperty
-  private SecureStorageServiceConfiguration storageService;
+  private SecureStorageServiceConfiguration storageService;*/
 
   @Valid
   @NotNull
@@ -155,9 +155,9 @@ public class WhisperServerConfiguration extends Configuration {
     return directory;
   }*/
 
-  public SecureStorageServiceConfiguration getSecureStorageServiceConfiguration() {
+  /*public SecureStorageServiceConfiguration getSecureStorageServiceConfiguration() {
     return storageService;
-  }
+  }*/
 
   public AccountDatabaseCrawlerConfiguration getAccountDatabaseCrawlerConfiguration() {
     return accountDatabaseCrawler;
