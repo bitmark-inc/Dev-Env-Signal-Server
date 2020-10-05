@@ -261,7 +261,7 @@ public class WhisperServerService extends Application<WhisperServerConfiguration
     SmsSender                smsSender           = null;// dev env has no smsSender
     WebsocketOnlyPushSender pushSender          = new WebsocketOnlyPushSender(websocketSender, DEV_ENV_FIXED_QUEUE_SIZE);
     ReceiptSender            receiptSender       = new ReceiptSender(accountsManager, pushSender);
-    TurnTokenGenerator       turnTokenGenerator  = new TurnTokenGenerator(config.getTurnConfiguration());
+    TurnTokenGenerator       turnTokenGenerator  = null;//new TurnTokenGenerator(config.getTurnConfiguration());
     RecaptchaClient          recaptchaClient     = null;
 
 

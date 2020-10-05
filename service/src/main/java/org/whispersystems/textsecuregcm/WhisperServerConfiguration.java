@@ -103,10 +103,10 @@ public class WhisperServerConfiguration extends Configuration {
   @JsonProperty
   private WebSocketConfiguration webSocket = new WebSocketConfiguration();
 
-  @Valid
+  /*@Valid
   @NotNull
   @JsonProperty
-  private TurnConfiguration turn;
+  private TurnConfiguration turn;*/
 
   @Valid
   @NotNull
@@ -187,9 +187,9 @@ public class WhisperServerConfiguration extends Configuration {
     return limits;
   }
 
-  public TurnConfiguration getTurnConfiguration() {
+  /*public TurnConfiguration getTurnConfiguration() {
     return turn;
-  }
+  }*/
 
   public UnidentifiedDeliveryConfiguration getDeliveryCertificate() {
     return unidentifiedDelivery;

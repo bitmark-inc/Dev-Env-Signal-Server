@@ -301,14 +301,14 @@ public class AccountController {
     }
   }
 
-  @Timed
+  /*@Timed
   @GET
   @Path("/turn/")
   @Produces(MediaType.APPLICATION_JSON)
   public TurnToken getTurnToken(@Auth Account account) throws RateLimitExceededException {
     rateLimiters.getTurnLimiter().validate(account.getNumber());
     return turnTokenGenerator.generate();
-  }
+  }*/
 
   @Timed
   @PUT
