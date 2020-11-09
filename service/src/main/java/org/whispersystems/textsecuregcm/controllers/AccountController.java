@@ -555,8 +555,8 @@ public class AccountController {
 
     if (account.isEnabled()) {
       directoryQueue.addRegisteredUser(account.getUuid(), number);
-    } else {
-      directoryQueue.deleteRegisteredUser(account.getUuid(), number);
+      //} else {
+	    //directoryQueue.deleteRegisteredUser(account.getUuid(), number);
     }
 
     messagesManager.clear(number);
